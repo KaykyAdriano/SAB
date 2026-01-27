@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca Online Senai</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+   <div class="fundo">
+    <img src="img/Logo SAB.png" alt="Logo SAB">
+   </div>
+  
+   <div class="header">
+    <h1>Olá, seja bem-vindo à Biblioteca Virtual do SENAI</h1>
+    <h2>Preencha os dados abaixo para acessar o nosso catálogo</h2>
+   </div>
+
+   <div class="formulario">
+       <label for="nome">Nome Completo</label>
+       <input type="text" id="nome" required>
+
+       <label for="numero">Número de Telefone</label>
+       <input type="number" id="numero" required>
+
+       <label for="RA">Código RA</label>
+       <input type="text" id="RA">
+
+       <label for="senha">Senha</label>
+       <input type="password" id="senha">
+
+       <button type="button" onclick="salvareentrar()">Entrar</button>
+   </div>
+
+   <script>
+     function salvareentrar() {
+       // DICA: Se você quiser validar se os campos estão cheios antes de ir,
+       // pode adicionar lógica aqui depois.
+       
+       // Redireciona para a página do catálogo
+       window.location.href = "catalogo.html";
+     }
+   </script>
+  
+</body>
+</html>
