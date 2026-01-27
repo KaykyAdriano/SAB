@@ -3,16 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catalogo de Livros</title>
+    <title>Catálogo - SAB</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+
+    <div class="header">
+        <h1>Olá, <span id="nomeAluno"></span> Seja bem-vindo ao nosso Catalogo !</h1>
+        <p>Escolha seu livro abaixo:</p>
+    </div>
+
+    <div class="lista-livros">
+        <div class="livro-card">
+            <img src="img/Automação industrial.jpg" alt="" width="150px">
+            <h3>Automação Industrial</h3>
+            <p>Status: <b style="color: green;">DISPONÍVEL</b></p>
+            <button onclick="alugarLivro('Automação Industrial')">Locar Livro</button>
+        </div>
+
+     
+
+        <div class="livro-card">
+            <img src="img/Eletronica basica.jpg" alt="" width="150px" gap="10%">
+            <h3>Eletrônica Básica</h3>
+            <p>Status: <b style="color: red;">EMPRESTADO</b></p>
+            <button disabled>Indisponível</button>
+        </div>
+    </div>
+
+    <div id="modalAluguel" class="modal">
+        <div class="modal-conteudo">
+            <span class="fechar" onclick="fecharModal()">&times;</span>
+            <h2 id="tituloModal">Confirmar Retirada</h2>
+            <p id="textoModal"></p>
+            <div class="modal-botoes">
+                <button class="btn-confirmar" onclick="irParaFormulario()">Confirmar</button>
+                <button class="btn-cancelar" onclick="fecharModal()">Cancelar</button>
+            </div>
+        </div>
+    </div>
 
 
 
+    <script>
+        var nomeSalvo = localStorage.getItem("aluno_nome");
+        if (nomeSalvo) {
+            document.getElementById("nomeAluno").innerText = nomeSalvo;
+        }
 
 
- <script src="script.js"></script>
+        var livroSelecionado = ""
+
+        function alugarLivro(nomeLivro){
+            livroSelecionado = nomeLivro
+            document.getElementById("textoModal").innerText = "Você escolheu: " + nomeLivro + ". Deseja prosseguir para a retirada ? "
+            document.getElementById("modalAluguel").style.display ="flex"
+        }
+
+        function fecharModal(){
+            document.getElementById("modalAluguel").style.display = "none"
+
+        }
+
+        function irParaFormulario(){
+            alert("Redirecionando para o formulário do livro: " + livroSelecionado)
+        }
+
+
+        window.onclick = function(event){
+            var modal= document.getElementById("modalAluguel")
+            if (event.target == modal){
+                fecharModal()
+            }
+        }
+    </script>
+
 </body>
 </html>
