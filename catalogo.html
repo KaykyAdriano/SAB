@@ -21,6 +21,14 @@
             <button onclick="alugarLivro('Automação Industrial')">Locar Livro</button>
         </div>
 
+        <div class="lista-livros">
+        <div class="livro-card">
+            <img src="Poder do habito.jpg" alt="" width="150px">
+            <h3>Automação Industrial</h3>
+            <p>Status: <b style="color: green;">DISPONÍVEL</b></p>
+            <button onclick="alugarLivro('O Poder do Hábito')">Locar Livro</button>
+        </div>
+
      
 
         <div class="livro-card">
@@ -41,7 +49,13 @@
                 <button class="btn-cancelar" onclick="fecharModal()">Cancelar</button>
             </div>
         </div>
+
+        <div class="modal-descrição">
+            <h2 id="textoModal">Redirecionando para o formulário do livro</h2>
+        </div>
     </div>
+
+    
 
 
 
@@ -66,7 +80,12 @@
         }
 
         function irParaFormulario(){
-            alert("Redirecionando para o formulário do livro: " + livroSelecionado)
+            localStorage.setItem("livro_escolhido", livroSelecionado);
+            document.getElementById("textoModal").innerText = 'Você sera redirecionado para o formulario'
+            setTimeout(function(){
+                window.location.href="formulario.html"
+            }, 1000)
+            
         }
 
 
