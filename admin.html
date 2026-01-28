@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo - SAB</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estilos exclusivos para a tabela do Admin */
+        body { 
+            flex-direction: column; 
+            background-color: #f4f4f4;
+         }
+        
+        .navbar {
+            background-color: #005c99; 
+            width: 100%; 
+            padding: 20px; 
+            color: white;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+        }
+
+        .container-tabela {
+            width: 90%; 
+            max-width: 1000px; 
+            margin: 30px auto;
+            background: white; 
+            padding: 20px; 
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #005c99; color: white; }
+        tr:hover { background-color: #f1f1f1; }
+        
+        .btn-limpar {
+            background-color: #d9534f; 
+            color: white; 
+            border: none; 
+            padding: 10px 20px;
+            cursor: pointer; 
+            border-radius: 5px; 
+            font-weight: bold;
+        }
+        .status-badge {
+            background-color: #5cb85c; 
+            color: white; 
+            padding: 5px 10px;
+            border-radius: 15px; 
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <h1>SAB - Painel da Bibliotecária</h1>
+        <button class="btn-limpar" onclick="limparSistema()">Resetar Sistema</button>
+    </div>
+
+    <div class="container-tabela">
+        <h2>Controle de Empréstimos Ativos</h2>
+        <p>Abaixo estão listados todos os livros retirados pelos alunos.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Aluno</th>
+                    <th>RA</th>
+                    <th>Livro Locado</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaCorpo">
+            </tbody>
+        </table>
+        
+        <p id="msgVazio" style="text-align: center; margin-top: 20px; color: #666;">Nenhum empréstimo registrado.</p>
+    </div>
+
+    <script>
+        // 1. Ler a lista salva na memória
+        var listaEmprestimos = JSON.parse(localStorage.getItem("bd_emprestimos") || "[]");
+        var corpoTabela = document.getElementById("tabelaCorpo");
+
+        // 2. Se tiver empréstimos, esconde a mensagem de "Vazio"
+        if (listaEmprestimos.length > 0) {
+            document.getElementById("msgVazio").style.display = "none";
+        }
+
+        // 3. Criar as linhas da tabela para cada empréstimo
+        listaEmprestimos.forEach(function(item) {
+            var linha = document.createElement("tr");
+            
+            linha.innerHTML = `
+                <td>${item.data}</td>
+                <td><strong>${item.aluno}</strong></td>
+                <td>${item.ra}</td>
+                <td>${item.livro}</td>
+                <td><span class="status-badge">${item.status}</span></td>
+            `;
+            
+            corpoTabela.appendChild(linha);
+        });
+
+        // Função extra para apagar tudo (útil para testes)
+        function limparSistema() {
+            if(confirm("Tem certeza que deseja apagar todos os registros?")) {
+                localStorage.removeItem("bd_emprestimos");
+                location.reload(); // Recarrega a página
+            }
+        }
+    </script>
+
+</body>
+</html>
