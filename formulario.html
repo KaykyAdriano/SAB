@@ -59,24 +59,23 @@
 
 
    <script>
-       // 1. FUNÇÃO PARA PEGAR O ID DA URL
+       //FUNÇÃO PARA PEGAR O ID DA URL
        function pegarIdDaUrl() {
            const params = new URLSearchParams(window.location.search);
-           return params.get('id'); // Pega o que está depois de ?id=
+           return params.get('id') // Pega o que está depois de ?id=
        }
 
        // Recupera ID da URL ou do LocalStorage (Fallback)
-       var idLivro = pegarIdDaUrl() || localStorage.getItem("livro_id_escolhido");
+       var idLivro = pegarIdDaUrl() || localStorage.getItem("livro_id_escolhido")
 
        // Recupera dados do aluno (se houver login feito)
-       var alunoNome = localStorage.getItem("aluno_nome");
-       var alunoRA = localStorage.getItem("aluno_ra");
+       var alunoNome = localStorage.getItem("aluno_nome")
+       var alunoRA = localStorage.getItem("aluno_ra")
 
-       if(alunoNome) document.getElementById("nome").value = alunoNome;
-       if(alunoRA) document.getElementById("RA").value = alunoRA;
+       if(alunoNome) document.getElementById("nome").value = alunoNome
+       if(alunoRA) document.getElementById("RA").value = alunoRA
 
-       // 2. BANCO DE DADOS COM "IDS" SIMPLIFICADOS
-       // Use chaves sem acento e sem espaço (slugs)
+      
        const dadosDosLivros = {
            'automacao': {
                titulo: 'Automação Industrial',
@@ -85,7 +84,8 @@
                editora: 'Editora AMGH',
                data: '8 junho 2015',
                edicao: '1ª Edição',
-               idioma: 'Português'
+               idioma: 'Português',
+               
            },
            'poder-habito': {
                titulo: 'O Poder do Hábito',
@@ -94,7 +94,8 @@
                editora: 'Objetiva',
                data: '24 setembro 2012',
                edicao: '1ª Edição',
-               idioma: 'Português'
+               idioma: 'Português',
+               sinopse:'explica como hábitos se formam, funcionam e moldam vidas e negócios, baseando-se em neurociência e exemplos práticos. O autor introduz o loop do hábito deixa-rotina-recompensa e demonstra que identificar e alterar esses padrões é a chave para o sucesso e transformação pessoal/empresarial.'
            },
            'eletronica': {
                titulo: 'Eletrônica Básica',
@@ -105,17 +106,17 @@
                edicao: '2ª Edição',
                idioma: 'Português'
            }
-       };
+       }
 
-       // 3. CARREGA AS INFORMAÇÕES NA TELA
+       // CARREGA AS INFORMAÇÕES NA TELA
        function carregarLivro() {
            // Verifica se o ID existe no nosso banco de dados
            if (idLivro && dadosDosLivros[idLivro]) {
                var dados = dadosDosLivros[idLivro];
 
-               document.getElementById("imgLivro").src = dados.imagem;
+               document.getElementById("imgLivro").src = dados.imagem
                // Agora pegamos o título de dentro do objeto dados
-               document.getElementById("tituloLivro").innerText = dados.titulo;
+               document.getElementById("tituloLivro").innerText = dados.titulo
 
                var listaHTML = `
                    <li>Páginas: ${dados.paginas}</li>
@@ -123,33 +124,34 @@
                    <li>Publicação: ${dados.data}</li>
                    <li>Edição: ${dados.edicao}</li>
                    <li>Idioma: ${dados.idioma}</li>
-               `;
-               document.getElementById("listaDetalhes").innerHTML = listaHTML;
+                   <li>Sinopse: ${dados.sinopse}</li>
+               `
+               document.getElementById("listaDetalhes").innerHTML = listaHTML
            } else {
                // Se acessou a página sem ID nenhum
-               document.getElementById("tituloLivro").innerText = "Selecione um livro ou leia o QR Code";
+               document.getElementById("tituloLivro").innerText = "Selecione um livro ou leia o QR Code"
            }
        }
 
-       carregarLivro();
+       carregarLivro()
 
-       // 4. MODAL
+       //MODAL
        function abrirModalConfirmacao() {
            // Pega o título bonito para mostrar na mensagem
-           var tituloBonito = dadosDosLivros[idLivro] ? dadosDosLivros[idLivro].titulo : "Livro Selecionado";
+           var tituloBonito = dadosDosLivros[idLivro] ? dadosDosLivros[idLivro].titulo : "Livro Selecionado"
 
-           var texto = "Locação confirmada para o livro <b>" + tituloBonito + "</b>. <br><br>Você tem 15 dias para a devolução.";
+           var texto = "Locação confirmada para o livro <b>" + tituloBonito + "</b>. <br><br>Você tem 15 dias para a devolução."
            document.getElementById("mensagemFinal").innerHTML = texto;
-           document.getElementById("modalSucesso").style.display = "flex";
+           document.getElementById("modalSucesso").style.display = "flex"
        }
 
        function fecharModal() {
-           document.getElementById("modalSucesso").style.display = "none";
+           document.getElementById("modalSucesso").style.display = "none"
        }
 
        window.onclick = function(event) {
            if (event.target == document.getElementById("modalSucesso")) {
-               fecharModal();
+               fecharModal()
            }
        }
    </script>
