@@ -43,7 +43,12 @@ a{
 }
 
 .descrição {
-padding: 15px;
+padding: 5px;
+
+}
+
+#listaDetalhes{
+    font-size: 15px;
 }
 
 
@@ -273,4 +278,5 @@ button:hover {
         height: 70vh;
     }
 }
+
 
