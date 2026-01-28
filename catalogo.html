@@ -18,7 +18,7 @@
             <img src="Automação industrial.jpg" alt="" width="150px">
             <h3>Automação Industrial</h3>
             <p>Status: <b style="color: green;">DISPONÍVEL</b></p>
-            <button onclick="alugarLivro('Automação Industrial')">Locar Livro</button>
+            <button onclick="alugarLivro('automação')">Locar Livro</button>
         </div>
 
         <div class="lista-livros">
@@ -26,7 +26,7 @@
             <img src="Poder do habito.jpg" alt="" width="150px">
             <h3>Automação Industrial</h3>
             <p>Status: <b style="color: green;">DISPONÍVEL</b></p>
-            <button onclick="alugarLivro('O Poder do Hábito')">Locar Livro</button>
+            <button onclick="alugarLivro('poder-habito')">Locar Livro</button>
         </div>
 
      
@@ -68,11 +68,11 @@
 
         var livroSelecionado = ""
 
-        function alugarLivro(nomeLivro){
-            livroSelecionado = nomeLivro
-            document.getElementById("textoModal").innerText = "Você escolheu: " + nomeLivro + ". Deseja prosseguir para a retirada ? "
-            document.getElementById("modalAluguel").style.display ="flex"
-        }
+       function alugarLivro(idDoLivro, nomeBonito){
+    
+        localStorage.setItem("livro_id_escolhido", idDoLivro);
+        window.location.href = "formulario.html?id=" + idDoLivro;
+    }
 
         function fecharModal(){
             document.getElementById("modalAluguel").style.display = "none"
