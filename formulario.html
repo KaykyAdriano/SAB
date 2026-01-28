@@ -81,17 +81,18 @@
                titulo: 'Automação Industrial',
                imagem: 'Automação industrial.jpg',
                paginas: '367 páginas',
-               editora: 'Editora AMGH',
+               autor: 'Frank Lamb',
                data: '8 junho 2015',
                edicao: '1ª Edição',
                idioma: 'Português',
+               sinopse: 'Este livro aborda controladores lógicos programáveis e sistemas pneumáticos.'
                
            },
            'poder-habito': {
                titulo: 'O Poder do Hábito',
                imagem: 'Poder do habito.jpg',
                paginas: '408 páginas',
-               editora: 'Objetiva',
+               autor: 'Charles Duhigg',
                data: '24 setembro 2012',
                edicao: '1ª Edição',
                idioma: 'Português',
@@ -101,12 +102,39 @@
                titulo: 'Eletrônica Básica',
                imagem: 'Eletronica basica.jpg',
                paginas: '540 páginas',
-               editora: 'Newton C. Braga',
+               autor: 'Newton C. Braga',
                data: '2020',
                edicao: '2ª Edição',
-               idioma: 'Português'
+               idioma: 'Português',
+               sinopse: 'Estuda o controle do fluxo de elétrons através de componentes como resistores, diodos e transistores para processar, armazenar ou transmitir informações.'
+           },
+
+           '48leisdopoder':{
+            titulo: '48 Leis do Poder',
+            imagem: '48 leis do poder.jpg',
+            paginas: '544 páginas',
+            autor: 'Robert Greene',
+            data: ' 2001',
+            edicao: '1ª Edição',
+            idioma: 'Português',
+            sinopse: 'é um best-seller que compila três mil anos de história para traçar um guia estratégico sobre como conquistar, defender-se e entender o poder nas relações sociais e profissionais. Com tom amoral e polêmico, o livro ensina manipulação, dissimulação e inteligência política. ',
+           },
+
+
+           'cidadededeus':{
+            titulo: 'Cidade de Deus',
+            imagem: 'Cidade de deus.jpg',
+            paginas: '550 páginas',
+            autor: 'Paulo Lins',
+            data: '1997',
+            edicao: '1ª Edição',
+            idioma: 'Português',
+            sinopse: 'É um romance que narra a evolução da violenta favela carioca de mesmo nome, desde os anos 60 até os 90, mostrando a transição da pequena criminalidade para o domínio do tráfico de drogas, através da história de personagens como Buscapé, um jovem fotógrafo que tenta escapar desse ciclo, e Zé Pequeno, um traficante cruel; a obra, baseada em pesquisa antropológica, retrata a vida na favela com realismo, denunciando a exclusão social e a violência sistêmica, e se tornou um clássico da literatura brasileira contemporânea, famosa também pela adaptação para o cinema. ',
            }
        }
+
+
+       
 
        // CARREGA AS INFORMAÇÕES NA TELA
        function carregarLivro() {
@@ -140,6 +168,7 @@
            // Coletar os dados atuais do formulário
            var nomeAluno = document.getElementById("nome").value;
            var raAluno = document.getElementById("RA").value;
+           var telefoneAluno = document.getElementById("numero").value;
            var cursoAluno = document.getElementById("Curso").value;
            
            // Pega o nome do livro (tenta pelo ID, se não der pega o texto da tela)
@@ -152,6 +181,7 @@
            var novoEmprestimo = {
                aluno: nomeAluno,
                ra: raAluno,
+               telefone: telefoneAluno,
                curso: cursoAluno,
                livro: nomeLivro,
                data: dataHoje,
@@ -168,18 +198,22 @@
            // SALVAR a lista atualizada de volta na memória
            localStorage.setItem("bd_emprestimos", JSON.stringify(listaAntiga));
 
+      
+
            // Agora mostra o modal visualmente como já fazia antes
            var texto = "Locação confirmada para o livro <b>" + nomeLivro + "</b>.<br>Registro salvo no sistema.";
            document.getElementById("mensagemFinal").innerHTML = texto;
            document.getElementById("modalSucesso").style.display = "flex";
+           window.location.href="index.html"
        }
+
        function fecharModal() {
            function fecharModal() {
-        
-           document.getElementById("modalSucesso").style.display = "none";
+    
+           document.getElementById("modalSucesso").style.display = "none"
            document.getElementById("nome").value = "";
            document.getElementById("numero").value = "";
-           window.location.href = "catalogo.html";
+          
        }
        }
 
@@ -191,5 +225,3 @@
    </script>
 </body>
 </html>
-
-
