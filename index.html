@@ -9,35 +9,59 @@
 <body>
 
     <div class="header">
+        <img src="Logo SAB.png" alt="" width="200px">
         <h1>Olá, <span id="nomeAluno"></span> Seja bem-vindo ao nosso Catalogo !</h1>
         <p>Escolha seu livro abaixo:</p>
     </div>
 
     <div class="lista-livros">
         <div class="livro-card">
-            <img src="Automação industrial.jpg" alt="" width="150px">
+           <img src="Automação industrial.jpg" onclick="abrirDetalhes('Automação Industrial', 'Frank Lamb', 'Este livro aborda controladores lógicos programáveis e sistemas pneumáticos.', '250 páginas')" style="cursor: pointer;" alt="Capa do Livro">
             <h3>Automação Industrial</h3>
             <p>Status: <b style="color: green;">DISPONÍVEL</b></p>
-            <button onclick="alugarLivro('automação')">Locar Livro</button>
+        
         </div>
 
         <div class="lista-livros">
         <div class="livro-card">
-            <img src="Poder do habito.jpg" alt="" width="150px">
-            <h3>Automação Industrial</h3>
+            <img src="Poder do habito.jpg" onclick="abrirDetalhes('Poder Do Habito', ' Charles Duhigg', 'explica como hábitos se formam, funcionam e moldam vidas e negócios, baseando-se em neurociência e exemplos práticos. O autor introduz o loop do hábito deixa-rotina-recompensa e demonstra que identificar e alterar esses padrões é a chave para o sucesso e transformação pessoal/empresarial. ', '408 páginas')" style="cursor: pointer;" alt="Capa do Livro">
+            <h3>O Poder do Habito</h3>
             <p>Status: <b style="color: green;">DISPONÍVEL</b></p>
-            <button onclick="alugarLivro('poder-habito')">Locar Livro</button>
+            
         </div>
 
-     
+
+
+
 
         <div class="livro-card">
-            <img src="Eletronica basica.jpg" alt="" width="150px" gap="10%">
+            <img src="Eletronica basica.jpg" onclick="abrirDetalhes('Eletrônica Básica', 'Newton C. Braga', 'Estuda o controle do fluxo de elétrons através de componentes como resistores, diodos e transistores para processar, armazenar ou transmitir informações.' ,'376 páginas')"  style="cursor: pointer"  alt="" width="150px" >
             <h3>Eletrônica Básica</h3>
             <p>Status: <b style="color: red;">EMPRESTADO</b></p>
-            <button disabled>Indisponível</button>
+            
         </div>
     </div>
+
+
+    <div class="lista-livros">
+        <div class="livro-card">
+            <img src="48 leis do poder.jpg" onclick="abrirDetalhes('48 leis do Poder', 'Robert Greene', 'é um best-seller que compila três mil anos de história para traçar um guia estratégico sobre como conquistar, defender-se e entender o poder nas relações sociais e profissionais. Com tom amoral e polêmico, o livro ensina manipulação, dissimulação e inteligência política. ', '544 páginas')" style="cursor: pointer" alt=""  >
+            <h3>48 Leis do Poder</h3>
+            <p>Status: <b style="color: green;">DISPONÍVEL</b></p>
+
+        </div>
+
+
+
+        <div class="lista-livros">
+        <div class="livro-card">
+            <img src="Cidade de deus.jpg" onclick="abrirDetalhes('Cidade de Deus', 'Paulo Lins', 'É um romance que narra a evolução da violenta favela carioca de mesmo nome, desde os anos 60 até os 90, mostrando a transição da pequena criminalidade para o domínio do tráfico de drogas, através da história de personagens como Buscapé, um jovem fotógrafo que tenta escapar desse ciclo, e Zé Pequeno, um traficante cruel; a obra, baseada em pesquisa antropológica, retrata a vida na favela com realismo, denunciando a exclusão social e a violência sistêmica, e se tornou um clássico da literatura brasileira contemporânea, famosa também pela adaptação para o cinema.', '550 páginas')" style="cursor: pointer;" alt="Capa do Livro">
+            <h3>O Poder do Habito</h3>
+            <p>Status: <b style="color: green;">DISPONÍVEL</b></p>
+            
+        </div>
+
+
 
     <div id="modalAluguel" class="modal">
         <div class="modal-conteudo">
@@ -53,9 +77,24 @@
         <div class="modal-descrição">
             <h2 id="textoModal">Redirecionando para o formulário do livro</h2>
         </div>
+ 
     </div>
 
     
+<div id="modalDetalhes" class="modal">
+    <div class="modal-conteudo">
+        <span class="fechar" onclick="fecharModalDetalhes()">&times;</span>
+        <h2 id="detalheTitulo"></h2>
+        <hr>
+        <p style="text-align: justify; margin: 15px 0;"><strong>Sinopse:</strong> <span id="detalheDescricao"></span></p>
+        <p style=" margin-bottom: 10px;">Autor: <span id="detalheAutor"></span></p>
+        <p><strong>Páginas:</strong> <span id="detalhePaginas"></span></p>
+        <button class="btn-confirmar" onclick="fecharModalDetalhes()">Fechar</button>
+    </div>
+</div>
+
+
+
 
 
 
@@ -88,15 +127,35 @@
             
         }
 
+        function abrirDetalhes(titulo,autor,descricao,paginas){
+            document.getElementById("detalheTitulo").innerText = titulo
+            document.getElementById("detalheAutor").innerText = autor
+            document.getElementById("detalheDescricao").innerText = descricao
+            document.getElementById("detalhePaginas").innerText = paginas
+
+            document.getElementById("modalDetalhes").style.display= "flex"
+        }
+
+        function fecharModalDetalhes(){
+            document.getElementById("modalDetalhes").style.display = "none"
+        }
+
+
 
         window.onclick = function(event){
-            var modal= document.getElementById("modalAluguel")
-            if (event.target == modal){
-                fecharModal()
+            var modalAluguel = document.getElementById("modalAluguel")
+            var modalDetalhes = document.getElementById("modalDetalhes")
+
+            if (event.target == modalAluguel) {
+                modalAluguel.style.display = "none"
+            }
+            if (event.target == modalDetalhes) {
+                modalDetalhes.style.display = "none"
             }
         }
     </script>
 
 </body>
 </html>
+
 
