@@ -17,27 +17,21 @@
            <div class="header">
                <h1>Bem-vindo ao SAB</h1>
                <h2>Sistema de Autoatendimento Bibliotecário</h2>
-               <p>Faça seu login para acessar o acervo.</p>
+               <p>Informe seu nome para acessar o nosso catalogo.</p>
            </div>
 
            <div class="formulario">
                <label for="nome">Nome Completo</label>
                <input type="text" id="nome" placeholder="Digite seu nome" required>
 
-               <label for="numero">Número de Telefone</label>
-               <input type="number" id="numero" placeholder="(xx) 9xxxx-xxxx" required>
+            
 
-               <label for="RA">Código RA</label>
-               <input type="text" id="RA" placeholder="Ex: 123456">
-
-               <label for="senha">Senha</label>
-               <input type="password" id="senha" placeholder="Sua senha">
 
                <button type="button" onclick="salvareentrar()">ACESSAR SISTEMA</button>
 
         
            </div>
-               <a href="cadastro.html">Crie sua conta</a>
+              
        </div>
    </div>
      
@@ -46,15 +40,15 @@
    <script>
     function salvareentrar() {
         var nome = document.getElementById('nome').value
-        var ra = document.getElementById('RA').value
+        
 
-        if (nome === "" || ra === "") {
+        if (nome === "" ) {
             alert("Por favor, preencha os dados obrigatórios!")
             return;
         }
 
         localStorage.setItem("aluno_nome", nome)
-        localStorage.setItem("aluno_ra", ra)
+       
         window.location.href = "catalogo.html"
     }
    </script>
