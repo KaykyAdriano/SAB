@@ -59,17 +59,27 @@
 
 
    <script>
-       // 1. Recupera os dados salvos
-       var livroNome = localStorage.getItem("livro_escolhido");
+       // 1. FUNÇÃO PARA PEGAR O ID DA URL
+       function pegarIdDaUrl() {
+           const params = new URLSearchParams(window.location.search);
+           return params.get('id'); // Pega o que está depois de ?id=
+       }
+
+       // Recupera ID da URL ou do LocalStorage (Fallback)
+       var idLivro = pegarIdDaUrl() || localStorage.getItem("livro_id_escolhido");
+
+       // Recupera dados do aluno (se houver login feito)
        var alunoNome = localStorage.getItem("aluno_nome");
        var alunoRA = localStorage.getItem("aluno_ra");
 
        if(alunoNome) document.getElementById("nome").value = alunoNome;
        if(alunoRA) document.getElementById("RA").value = alunoRA;
 
-       // 2. Banco de Dados dos Livros
+       // 2. BANCO DE DADOS COM "IDS" SIMPLIFICADOS
+       // Use chaves sem acento e sem espaço (slugs)
        const dadosDosLivros = {
-           'Automação Industrial': {
+           'automacao': {
+               titulo: 'Automação Industrial',
                imagem: 'Automação industrial.jpg',
                paginas: '367 páginas',
                editora: 'Editora AMGH',
@@ -77,7 +87,8 @@
                edicao: '1ª Edição',
                idioma: 'Português'
            },
-           'O Poder do Hábito': {
+           'poder-habito': {
+               titulo: 'O Poder do Hábito',
                imagem: 'Poder do habito.jpg',
                paginas: '408 páginas',
                editora: 'Objetiva',
@@ -85,7 +96,8 @@
                edicao: '1ª Edição',
                idioma: 'Português'
            },
-           'Eletrônica Básica': {
+           'eletronica': {
+               titulo: 'Eletrônica Básica',
                imagem: 'Eletronica basica.jpg',
                paginas: '540 páginas',
                editora: 'Newton C. Braga',
@@ -95,12 +107,15 @@
            }
        };
 
-       // 3. Carrega infos na tela
+       // 3. CARREGA AS INFORMAÇÕES NA TELA
        function carregarLivro() {
-           if (livroNome && dadosDosLivros[livroNome]) {
-               var dados = dadosDosLivros[livroNome];
+           // Verifica se o ID existe no nosso banco de dados
+           if (idLivro && dadosDosLivros[idLivro]) {
+               var dados = dadosDosLivros[idLivro];
+
                document.getElementById("imgLivro").src = dados.imagem;
-               document.getElementById("tituloLivro").innerText = livroNome;
+               // Agora pegamos o título de dentro do objeto dados
+               document.getElementById("tituloLivro").innerText = dados.titulo;
 
                var listaHTML = `
                    <li>Páginas: ${dados.paginas}</li>
@@ -111,34 +126,29 @@
                `;
                document.getElementById("listaDetalhes").innerHTML = listaHTML;
            } else {
-               alert("Nenhum livro selecionado.");
+               // Se acessou a página sem ID nenhum
+               document.getElementById("tituloLivro").innerText = "Selecione um livro ou leia o QR Code";
            }
        }
 
        carregarLivro();
 
-       // 4. FUNÇÕES DO MODAL (Corrigidas)
-       
+       // 4. MODAL
        function abrirModalConfirmacao() {
-           // Define o texto personalizado
-           var texto = "Locação confirmada para o livro <b>" + livroNome + "</b>. <br><br>Você tem 15 dias para a devolução do livro. Caso contrário iremos disparar mensagem via WhatsApp te lembrando da devolução. Caso não for devolvido dentro do prazo você não poderá locar outros livros.";
-           
-           // Coloca o texto no HTML
+           // Pega o título bonito para mostrar na mensagem
+           var tituloBonito = dadosDosLivros[idLivro] ? dadosDosLivros[idLivro].titulo : "Livro Selecionado";
+
+           var texto = "Locação confirmada para o livro <b>" + tituloBonito + "</b>. <br><br>Você tem 15 dias para a devolução.";
            document.getElementById("mensagemFinal").innerHTML = texto;
-           
-           // Mostra o modal (Muda o display de 'none' para 'flex')
            document.getElementById("modalSucesso").style.display = "flex";
        }
 
        function fecharModal() {
            document.getElementById("modalSucesso").style.display = "none";
-          window.location.href="catalogo.html"
        }
 
-      
        window.onclick = function(event) {
-           var modal = document.getElementById("modalSucesso");
-           if (event.target == modal) {
+           if (event.target == document.getElementById("modalSucesso")) {
                fecharModal();
            }
        }
