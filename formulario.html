@@ -137,14 +137,42 @@
 
        //MODAL
        function abrirModalConfirmacao() {
-           // Pega o título bonito para mostrar na mensagem
-           var tituloBonito = dadosDosLivros[idLivro] ? dadosDosLivros[idLivro].titulo : "Livro Selecionado"
+           // Coletar os dados atuais do formulário
+           var nomeAluno = document.getElementById("nome").value;
+           var raAluno = document.getElementById("RA").value;
+           var cursoAluno = document.getElementById("Curso").value;
+           
+           // Pega o nome do livro (tenta pelo ID, se não der pega o texto da tela)
+           var nomeLivro = dadosDosLivros[idLivro] ? dadosDosLivros[idLivro].titulo : document.getElementById("tituloLivro").innerText;
+           
+           // Pega a data de hoje
+           var dataHoje = new Date().toLocaleDateString("pt-BR");
 
-           var texto = "Locação confirmada para o livro <b>" + tituloBonito + "</b>. <br><br>Você tem 15 dias para a devolução."
+           // Criar o objeto do empréstimo
+           var novoEmprestimo = {
+               aluno: nomeAluno,
+               ra: raAluno,
+               curso: cursoAluno,
+               livro: nomeLivro,
+               data: dataHoje,
+               status: "Emprestado"
+           };
+
+           // RECUPERAR a lista antiga que já está na memória (ou criar uma vazia)
+           // Usamos JSON.parse para transformar o texto da memória em uma lista do Javascript
+           var listaAntiga = JSON.parse(localStorage.getItem("bd_emprestimos") || "[]");
+
+           // ADICIONAR o novo empréstimo na lista
+           listaAntiga.push(novoEmprestimo);
+
+           // SALVAR a lista atualizada de volta na memória
+           localStorage.setItem("bd_emprestimos", JSON.stringify(listaAntiga));
+
+           // Agora mostra o modal visualmente como já fazia antes
+           var texto = "Locação confirmada para o livro <b>" + nomeLivro + "</b>.<br>Registro salvo no sistema.";
            document.getElementById("mensagemFinal").innerHTML = texto;
-           document.getElementById("modalSucesso").style.display = "flex"
+           document.getElementById("modalSucesso").style.display = "flex";
        }
-
        function fecharModal() {
            document.getElementById("modalSucesso").style.display = "none"
        }
@@ -157,3 +185,4 @@
    </script>
 </body>
 </html>
+
