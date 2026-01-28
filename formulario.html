@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Locação</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+   <div class="lado-direito-formulario">
+     <img id="imgLivro" src="" alt="Capa do Livro" width="200px">
+
+     <div class="descrição">
+        <h3 id="tituloLivro" style="color: white; margin-top: 10px;"></h3>
+     </div>
+     
+     <ul id="listaDetalhes" style="color: white; list-style-position: inside;">
+        </ul>
+   </div>
+   
+   <div class="lado-esquerdo-formulario">
+    <h2>Preencha os seus dados abaixo para fazer a locação do livro</h2>
+    <br>
+
+    <div class="formulario-locação">
+               <label for="nome">Nome Completo</label>
+               <input type="text" id="nome" placeholder="Digite seu nome" required>
+
+               <label for="numero">Número de Telefone</label>
+               <input type="number" id="numero" placeholder="(xx) 9xxxx-xxxx" required>
+
+               <label for="RA">Código RA</label>
+               <input type="text" id="RA" placeholder="Ex: 123456" required>
+
+               <label for="Curso">Curso que está fazendo no momento</label>
+               <input type="text" id="Curso" placeholder="Ex: Técnico em Informática" required>
+
+               <label for="Turno">Turno</label>
+               <input type="text" id="Turno" placeholder="Diurno ou Noturno?" required>
+
+               <button type="button" onclick="abrirModalConfirmacao()">Confirmar Locação</button>
+
+
+
+   </div>
+   </div>
+
+        <div id="modalSucesso" class="modal">
+        <div class="modal-conteudo">
+            <span class="fechar" onclick="fecharModal()">&times;</span>
+            <h2 style="color: green; margin-bottom: 15px;">Locação Realizada!</h2>
+            
+            <p id="mensagemFinal" style="font-size: 16px; line-height: 1.5; color: #333; text-align: justify;">
+                </p>
+
+            <button onclick="fecharModal()" style="background-color: green; margin-top: 20px;">Entendi</button>
+        </div>
+   </div>
+
+
+   <script>
+       // 1. Recupera os dados salvos
+       var livroNome = localStorage.getItem("livro_escolhido");
+       var alunoNome = localStorage.getItem("aluno_nome");
+       var alunoRA = localStorage.getItem("aluno_ra");
+
+       if(alunoNome) document.getElementById("nome").value = alunoNome;
+       if(alunoRA) document.getElementById("RA").value = alunoRA;
+
+       // 2. Banco de Dados dos Livros
+       const dadosDosLivros = {
+           'Automação Industrial': {
+               imagem: 'Automação industrial.jpg',
+               paginas: '367 páginas',
+               editora: 'Editora AMGH',
+               data: '8 junho 2015',
+               edicao: '1ª Edição',
+               idioma: 'Português'
+           },
+           'O Poder do Hábito': {
+               imagem: 'Poder do habito.jpg',
+               paginas: '408 páginas',
+               editora: 'Objetiva',
+               data: '24 setembro 2012',
+               edicao: '1ª Edição',
+               idioma: 'Português'
+           },
+           'Eletrônica Básica': {
+               imagem: 'Eletronica basica.jpg',
+               paginas: '540 páginas',
+               editora: 'Newton C. Braga',
+               data: '2020',
+               edicao: '2ª Edição',
+               idioma: 'Português'
+           }
+       };
+
+       // 3. Carrega infos na tela
+       function carregarLivro() {
+           if (livroNome && dadosDosLivros[livroNome]) {
+               var dados = dadosDosLivros[livroNome];
+               document.getElementById("imgLivro").src = dados.imagem;
+               document.getElementById("tituloLivro").innerText = livroNome;
+
+               var listaHTML = `
+                   <li>Páginas: ${dados.paginas}</li>
+                   <li>Editora: ${dados.editora}</li>
+                   <li>Publicação: ${dados.data}</li>
+                   <li>Edição: ${dados.edicao}</li>
+                   <li>Idioma: ${dados.idioma}</li>
+               `;
+               document.getElementById("listaDetalhes").innerHTML = listaHTML;
+           } else {
+               alert("Nenhum livro selecionado.");
+           }
+       }
+
+       carregarLivro();
+
+       // 4. FUNÇÕES DO MODAL (Corrigidas)
+       
+       function abrirModalConfirmacao() {
+           // Define o texto personalizado
+           var texto = "Locação confirmada para o livro <b>" + livroNome + "</b>. <br><br>Você tem 15 dias para a devolução do livro. Caso contrário iremos disparar mensagem via WhatsApp te lembrando da devolução. Caso não for devolvido dentro do prazo você não poderá locar outros livros.";
+           
+           // Coloca o texto no HTML
+           document.getElementById("mensagemFinal").innerHTML = texto;
+           
+           // Mostra o modal (Muda o display de 'none' para 'flex')
+           document.getElementById("modalSucesso").style.display = "flex";
+       }
+
+       function fecharModal() {
+           document.getElementById("modalSucesso").style.display = "none";
+          window.location.href="catalogo.html"
+       }
+
+      
+       window.onclick = function(event) {
+           var modal = document.getElementById("modalSucesso");
+           if (event.target == modal) {
+               fecharModal();
+           }
+       }
+   </script>
+</body>
+</html>
