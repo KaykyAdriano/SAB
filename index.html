@@ -1,162 +1,194 @@
 <!DOCTYPE html>
+
 <html lang="pt-br">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo - SAB</title>
+
+    <title>Painel Administrativo - SAB</title>
+
     <link rel="stylesheet" href="style.css">
+
+
+
 </head>
+
 <body>
 
-    <div class="header">
-        <img src="Logo SAB.png" alt="" width="200px">
-        <h1>Olá, <span id="nomeAluno"></span> Seja bem-vindo ao nosso Catalogo !</h1>
-        <p>Escolha seu livro abaixo:</p>
-    </div>
 
-    <div class="lista-livros">
-        <div class="livro-card">
-           <img src="Automação industrial.jpg" onclick="abrirDetalhes('Automação Industrial', 'Frank Lamb', 'Este livro aborda controladores lógicos programáveis e sistemas pneumáticos.', '250 páginas')" style="cursor: pointer;" alt="Capa do Livro">
-            <h3>Automação Industrial</h3>
-            <p>Status: <b style="color: green;">DISPONÍVEL</b></p>
+
+    <div class="navbar">
+
+        <h1>SAB - Painel da Bibliotecária</h1>
+
         
-        </div>
 
-        <div class="lista-livros">
-        <div class="livro-card">
-            <img src="Poder do habito.jpg" onclick="abrirDetalhes('Poder Do Habito', ' Charles Duhigg', 'explica como hábitos se formam, funcionam e moldam vidas e negócios, baseando-se em neurociência e exemplos práticos. O autor introduz o loop do hábito deixa-rotina-recompensa e demonstra que identificar e alterar esses padrões é a chave para o sucesso e transformação pessoal/empresarial. ', '408 páginas')" style="cursor: pointer;" alt="Capa do Livro">
-            <h3>O Poder do Habito</h3>
-            <p>Status: <b style="color: green;">DISPONÍVEL</b></p>
-            
-        </div>
+        <img src="Logo SAB.png" alt="">
 
-
-
-
-
-        <div class="livro-card">
-            <img src="Eletronica basica.jpg" onclick="abrirDetalhes('Eletrônica Básica', 'Newton C. Braga', 'Estuda o controle do fluxo de elétrons através de componentes como resistores, diodos e transistores para processar, armazenar ou transmitir informações.' ,'376 páginas')"  style="cursor: pointer"  alt="" width="150px" >
-            <h3>Eletrônica Básica</h3>
-            <p>Status: <b style="color: red;">EMPRESTADO</b></p>
-            
-        </div>
     </div>
 
 
-    <div class="lista-livros">
-        <div class="livro-card">
-            <img src="48 leis do poder.jpg" onclick="abrirDetalhes('48 leis do Poder', 'Robert Greene', 'é um best-seller que compila três mil anos de história para traçar um guia estratégico sobre como conquistar, defender-se e entender o poder nas relações sociais e profissionais. Com tom amoral e polêmico, o livro ensina manipulação, dissimulação e inteligência política. ', '544 páginas')" style="cursor: pointer" alt=""  >
-            <h3>48 Leis do Poder</h3>
-            <p>Status: <b style="color: green;">DISPONÍVEL</b></p>
-
-        </div>
 
 
 
-        <div class="lista-livros">
-        <div class="livro-card">
-            <img src="Cidade de deus.jpg" onclick="abrirDetalhes('Cidade de Deus', 'Paulo Lins', 'É um romance que narra a evolução da violenta favela carioca de mesmo nome, desde os anos 60 até os 90, mostrando a transição da pequena criminalidade para o domínio do tráfico de drogas, através da história de personagens como Buscapé, um jovem fotógrafo que tenta escapar desse ciclo, e Zé Pequeno, um traficante cruel; a obra, baseada em pesquisa antropológica, retrata a vida na favela com realismo, denunciando a exclusão social e a violência sistêmica, e se tornou um clássico da literatura brasileira contemporânea, famosa também pela adaptação para o cinema.', '550 páginas')" style="cursor: pointer;" alt="Capa do Livro">
-            <h3>Cidade de deus</h3>
-            <p>Status: <b style="color: green;">DISPONÍVEL</b></p>
+
+
+
+
+    <div class="container-tabela">
+
+        <h2>Controle de Empréstimos Ativos</h2>
+
+        <p>Abaixo estão listados todos os livros retirados pelos alunos.</p>
+
+            <button class="btn-limpar" onclick="limparSistema()">Resetar Sistema</button>
             
-        </div>
 
+ <div id="areaEnvio" style="background: #f0f0f0; padding: 15px; margin: 10px; border-radius: 8px;">
+    <h3>Enviar mensagem</h3>
 
-
-    <div id="modalAluguel" class="modal">
-        <div class="modal-conteudo">
-            <span class="fechar" onclick="fecharModal()">&times;</span>
-            <h2 id="tituloModal">Confirmar Retirada</h2>
-            <p id="textoModal"></p>
-            <div class="modal-botoes">
-                <button class="btn-confirmar" onclick="irParaFormulario()">Confirmar</button>
-                <button class="btn-cancelar" onclick="fecharModal()">Cancelar</button>
-            </div>
-        </div>
-
-        <div class="modal-descrição">
-            <h2 id="textoModal">Redirecionando para o formulário do livro</h2>
-        </div>
- 
-    </div>
-
+    <input type="text" id="inputTelefone" placeholder="Ex: 5511999999999" style="padding: 8px; width: 200px;">
     
-<div id="modalDetalhes" class="modal">
-    <div class="modal-conteudo">
-        <span class="fechar" onclick="fecharModalDetalhes()">&times;</span>
-        <h2 id="detalheTitulo"></h2>
-        <hr>
-        <p style="text-align: justify; margin: 15px 0;"><strong>Sinopse:</strong> <span id="detalheDescricao"></span></p>
-        <p style=" margin-bottom: 10px;">Autor: <span id="detalheAutor"></span></p>
-        <p><strong>Páginas:</strong> <span id="detalhePaginas"></span></p>
-        <button class="btn-confirmar" onclick="fecharModalDetalhes()">Fechar</button>
-    </div>
+    <input type="text" id="inputMensagem" placeholder="Digite sua mensagem..." style="padding: 8px; width: 300px;">
+    
+    <button onclick="enviarZap()" style="padding: 8px; background: #25D366; color: white; border: none; cursor: pointer;">Enviar Agora</button>
 </div>
+        </div> 
 
 
 
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Data</th>
+
+                    <th>Aluno</th>
+
+                    <th>RA</th>
+
+                    <th>Telefone</th>
+
+                    <th>Livro Locado</th>
+
+                    <th>Status</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="tabelaCorpo">
+
+            </tbody>
+
+        </table>
+
+        
+
+        <p id="msgVazio" style="text-align: center; margin-top: 20px; color: #666;">Nenhum empréstimo registrado.</p>
+
+    </div>
 
 
 
     <script>
-        var nomeSalvo = localStorage.getItem("aluno_nome");
-        if (nomeSalvo) {
-            document.getElementById("nomeAluno").innerText = nomeSalvo;
-        }
+
+        //  Ler a lista salva na memória
+
+        var listaEmprestimos = JSON.parse(localStorage.getItem("bd_emprestimos") || "[]")
+
+        var corpoTabela = document.getElementById("tabelaCorpo")
 
 
-        var livroSelecionado = ""
 
-       function alugarLivro(idDoLivro, nomeBonito){
-    
-        localStorage.setItem("livro_id_escolhido", idDoLivro);
-        window.location.href = "formulario.html?id=" + idDoLivro;
-    }
+        //  Se tiver empréstimos, esconde a mensagem de "Vazio"
 
-        function fecharModal(){
-            document.getElementById("modalAluguel").style.display = "none"
+        if (listaEmprestimos.length > 0) {
+
+            document.getElementById("msgVazio").style.display = "none"
 
         }
 
-        function irParaFormulario(){
-            localStorage.setItem("livro_escolhido", livroSelecionado);
-            document.getElementById("textoModal").innerText = 'Você sera redirecionado para o formulario'
-            setTimeout(function(){
-                window.location.href="formulario.html"
-            }, 1000)
+
+
+        // 3. Criar as linhas da tabela para cada empréstimo
+
+        listaEmprestimos.forEach(function(item) {
+
+            var linha = document.createElement("tr")
+
             
-        }
 
-        function abrirDetalhes(titulo,autor,descricao,paginas){
-            document.getElementById("detalheTitulo").innerText = titulo
-            document.getElementById("detalheAutor").innerText = autor
-            document.getElementById("detalheDescricao").innerText = descricao
-            document.getElementById("detalhePaginas").innerText = paginas
+            linha.innerHTML = `
 
-            document.getElementById("modalDetalhes").style.display= "flex"
-        }
+                <td>${item.data}</td>
 
-        function fecharModalDetalhes(){
-            document.getElementById("modalDetalhes").style.display = "none"
-        }
+                <td><strong>${item.aluno}</strong></td>
+
+                <td>${item.ra}</td>
+
+                <td>${item.telefone}</td>
+
+                <td>${item.livro}</td>
+
+                <td><span class="status-badge">${item.status}</span></td>
+
+            `
+
+        
+
+            corpoTabela.appendChild(linha)
+
+        })
 
 
 
-        window.onclick = function(event){
-            var modalAluguel = document.getElementById("modalAluguel")
-            var modalDetalhes = document.getElementById("modalDetalhes")
+        // Função extra para apagar tudo (útil para testes)
 
-            if (event.target == modalAluguel) {
-                modalAluguel.style.display = "none"
+        function limparSistema() {
+
+            if(confirm("Tem certeza que deseja apagar todos os registros?")) {
+
+                localStorage.removeItem("bd_emprestimos")
+
+                location.reload() 
+
             }
-            if (event.target == modalDetalhes) {
-                modalDetalhes.style.display = "none"
+
+        }
+
+
+
+        function enviarZap(){
+            var telefone = document.getElementById("inputTelefone").value
+            var texto = document.getElementById("inputMensagem").value
+
+            if(telefone === "" || texto === ""){
+                alert("Porfavor, preencha o telefone e a mensagem!")
+                return
             }
+
+         var url = "https://api.whatsapp.com/send?phone=" + telefone + "&text=" + encodeURIComponent(texto)
+
+         window.open(url, "_bla")
         }
     </script>
 
+
+
 </body>
+
 </html>
+
+
+
+
 
 
 
