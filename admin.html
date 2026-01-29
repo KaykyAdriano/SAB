@@ -166,8 +166,8 @@
 
 
         function enviarZap(){
-            var telefone = inputTelefone
-            var texto = inputMensagem
+            var telefone = document.getElementById("inputTelefone").value
+            var texto = document.getElementById("inputMensagem").value
 
             if(telefone === "" || texto === ""){
                 alert("Porfavor, preencha o telefone e a mensagem!")
